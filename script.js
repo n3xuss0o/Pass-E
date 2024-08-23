@@ -6,9 +6,9 @@ const AIRTABLE_API_TOKEN = 'pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4b
 const AIRTABLE_BASE_ID = 'app9wEysyeQ4sgOXY'; // Remplace par l'ID de ta base Airtable
 const AIRTABLE_TABLE_NAME = 'Table 1'; // Assure-toi que ce nom correspond au nom de la table dans Airtable
 
-const apiUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`;
+const apiUrl = `https://api.airtable.com/v0/${'app9wEysyeQ4sgOXY'}/${'Table 1'}`;
 const headers = {
-    Authorization: `Bearer ${AIRTABLE_API_TOKEN}`,  // Utilise le jeton dans l'en-tête Authorization
+    Authorization: `Bearer ${'pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4bed8b8059f8232db90438a6bff75695'}`,  // Utilise le jeton dans l'en-tête Authorization
     'Content-Type': 'application/json',
 };
 
