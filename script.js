@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
 // Remplace ces valeurs par celles de ton compte Airtable
 const AIRTABLE_API_TOKEN = 'pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4bed8b8059f8232db90438a6bff75695';  // Utilise le jeton d'authentification
 const AIRTABLE_BASE_ID = 'https://airtable.com/app9wEysyeQ4sgOXY/api/docs';
