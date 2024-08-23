@@ -1,0 +1,10 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+#scanner-container {
+    margin: 20px auto;
+    border: 2px solid #000;
+}
