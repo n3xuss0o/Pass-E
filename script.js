@@ -1,13 +1,14 @@
+// Inclure la bibliothèque pour scanner les QR codes
 <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 
 // Remplace ces valeurs par celles de ton compte Airtable
 const AIRTABLE_API_TOKEN = 'pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4bed8b8059f8232db90438a6bff75695';  // Utilise le jeton d'authentification
-const AIRTABLE_BASE_ID = 'https://airtable.com/app9wEysyeQ4sgOXY/api/docs';
+const AIRTABLE_BASE_ID = 'app9wEysyeQ4sgOXY'; // Remplace par l'ID de ta base Airtable
 const AIRTABLE_TABLE_NAME = 'Table 1'; // Assure-toi que ce nom correspond au nom de la table dans Airtable
 
-const apiUrl = `https://api.airtable.com/v0/${'https://airtable.com/app9wEysyeQ4sgOXY/api/docs'}/${'Table 1'}`;
+const apiUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`;
 const headers = {
-    Authorization: `Bearer ${pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4bed8b8059f8232db90438a6bff75695}`,  // Utilise le jeton dans l'en-tête Authorization
+    Authorization: `Bearer ${AIRTABLE_API_TOKEN}`,  // Utilise le jeton dans l'en-tête Authorization
     'Content-Type': 'application/json',
 };
 
