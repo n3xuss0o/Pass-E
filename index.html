@@ -4,17 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
-    <!-- Inclure la bibliothèque pour scanner les QR codes depuis le fichier local -->
-    <script src="html5-qrcode.min.js"></script> <!-- Si le fichier est dans le même répertoire -->
-    <!-- Ou, si tu as mis le fichier dans un sous-répertoire 'js': -->
-    <!-- <script src="js/html5-qrcode.min.js"></script> -->
-    <script src="script.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #scanner-container {
+            margin: 20px auto;
+            border: 2px solid #000;
+            width: 300px;
+            height: 300px;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        #result.success {
+            color: green;
+        }
+
+        #result.error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h1>QR Code Scanner</h1>
-    <div id="scanner-container" style="width: 300px; height: 300px;"></div>
-    <input type="text" id="token" placeholder="Token" readonly>
+    <div id="scanner-container"></div>
     <div id="result"></div>
+
+    <!-- Include the QR code library -->
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
+    <script>
+        // Votre code JavaScript ici
+    </script>
 </body>
 </html>
-
