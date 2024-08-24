@@ -25,12 +25,16 @@ function scanQRCode(token) {
         .then(response => response.json())
         .then(data => {
             console.log('Airtable response:', data); // Log la réponse d’Airtable pour débogage
+            const resultElement = document.getElementById('result');
+            
             if (data.records.length === 0) {
-                document.getElementById('result').textContent = 'QR code not found';
+                resultElement.textContent = 'QR code not found';
+                resultElement.className = 'error';
             } else {
                 const record = data.records[0];
                 if (record.fields.Status === 'Used') {
-                    document.getElementById('result').textContent = 'QR code already used';
+                    resultElement.textContent = 'QR code already used';
+                    resultElement.className = 'error';
                 } else {
                     // Mettre à jour le statut du QR code à "Used"
                     fetch(`${apiUrl}/${record.id}`, {
@@ -41,18 +45,20 @@ function scanQRCode(token) {
                         }),
                     })
                     .then(() => {
-                        document.getElementById('result').textContent = 'QR code is valid and has been used';
+                        resultElement.textContent = 'QR code is valid and has been used';
+                        resultElement.className = 'success';
                     })
                     .catch(error => {
-                        document.getElementById('result').textContent = 'Error updating QR code status.';
-                        console.error('Error updating QR code status:', error);
+                       resultElement.textContent = 'Error updating QR code status.';
+                       resultElement.className = ('Error updating QR code status:', error);
                     });
                 }
             }
         })
         .catch(error => {
-            document.getElementById('result').textContent = 'Error scanning QR code.';
-            console.error('Error fetching QR code:', error);
+           resultElement.textContent = 'Error scanning QR code.';
+           resultElement.className = 'error'; 
+           console.error('Error fetching QR code:', error);
         });
 }
 
