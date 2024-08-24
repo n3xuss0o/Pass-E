@@ -45,3 +45,40 @@
 
     <!-- Include the QR code library -->
     <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
+    <script>
+        console.log("Script loaded");
+
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log('QR Code scanned:', decodedText);
+            document.getElementById('result').innerText = decodedText;
+        }
+
+        function startScanner() {
+            console.log("Attempting to start the scanner");
+            const html5QrCode = new Html5Qrcode("scanner-container");
+            
+            html5QrCode.start(
+                { facingMode: "environment" }, 
+                {
+                    fps: 10, 
+                    qrbox: 250 
+                },
+                onScanSuccess,
+                (errorMessage) => {
+                    console.log('QR code scan error:', errorMessage);
+                }
+            ).catch(err => {
+                console.error('Failed to start the QR code scanner:', err);
+                document.getElementById('scanner-container').innerText = 
+                    "Unable to start scanner: " + err;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded and parsed");
+            startScanner();
+        });
+    </script>
+</body>
+</html>
