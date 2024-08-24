@@ -58,7 +58,7 @@ function scanQRCode(token) {
 
 // Fonction pour démarrer le scanner de QR code
 function startScanner() {
-    const html5QrCode = new Html5QrCode("scanner-container");
+    const html5QrCode = new Html5Qrcode("scanner-container");
     html5QrCode.start(
         { facingMode: "environment" }, // Utiliser la caméra arrière
         {
