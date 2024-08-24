@@ -16,6 +16,11 @@ function onScanSuccess(decodedText, decodedResult) {
     scanQRCode(decodedText);
 }
 
+function onScanSuccess(decodedText, decodedResult) {
+    console.log('QR Code scanned:', decodedText); // Voir la valeur scannée
+    scanQRCode(decodedText);
+}
+
 // Fonction pour vérifier le QR code dans Airtable et mettre à jour son statut
 function scanQRCode(token) {
     console.log('Searching for token:', token); // Log le token recherché pour débogage
