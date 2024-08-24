@@ -8,3 +8,20 @@ body {
     margin: 20px auto;
     border: 2px solid #000;
 }
+/* Conteneur pour le message de résultat */
+#result {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Style pour les messages de succès (QR code valide) */
+#result.success {
+    color: green;
+}
+
+/* Style pour les messages d'erreur (QR code non valide ou déjà utilisé) */
+#result.error {
+    color: red;
+}
