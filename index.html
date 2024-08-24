@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
-    <script src="html5-qrcode.min.js"></script>
+    <!-- Inclure la bibliothèque pour scanner les QR codes depuis le fichier local -->
+    <script src="html5-qrcode.min.js"></script> <!-- Si le fichier est dans le même répertoire -->
+    <!-- Ou, si tu as mis le fichier dans un sous-répertoire 'js': -->
+    <!-- <script src="js/html5-qrcode.min.js"></script> -->
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -14,3 +17,4 @@
     <div id="result"></div>
 </body>
 </html>
+
