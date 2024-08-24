@@ -4,25 +4,32 @@ body {
     margin: 20px;
 }
 
+/* Conteneur pour le scanner de QR code */
 #scanner-container {
-    margin: 20px auto;
-    border: 2px solid #000;
+    margin: 20px auto;  /* Centre le conteneur horizontalement */
+    border: 2px solid #000;  /* Bordure noire autour du scanner */
+    width: 300px;  /* Largeur du conteneur */
+    height: 300px;  /* Hauteur du conteneur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;  /* Couleur de fond grise claire */
 }
 
 /* Conteneur pour le message de résultat */
 #result {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 50px;
-    text-align: center;
+    font-size: 18px;  /* Taille de la police */
+    font-weight: bold;  /* Texte en gras */
+    margin-top: 50px;  /* Espace au-dessus du message */
+    text-align: center;  /* Aligne le texte au centre */
 }
 
 /* Style pour les messages de succès (QR code valide) */
 #result.success {
-    color: green;
+    color: green;  /* Couleur verte pour le succès */
 }
 
 /* Style pour les messages d'erreur (QR code non valide ou déjà utilisé) */
 #result.error {
-    color: red;
+    color: red;  /* Couleur rouge pour les erreurs */
 }
