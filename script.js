@@ -9,23 +9,16 @@ const headers = {
     'Content-Type': 'application/json',
 };
 
-// Fonction appelée lorsque le QR code est scanné avec succès
-function onScanSuccess(decodedText, decodedResult) {
-    console.log('QR Code scanned:', decodedText); // Log le texte décodé pour débogage
-    document.getElementById('token').value = decodedText;
-    scanQRCode(decodedText);
-}
-
 function onScanSuccess(decodedText, decodedResult) {
     console.log('QR Code scanned:', decodedText); // Voir la valeur scannée
     scanQRCode(decodedText);
 }
 
-// Fonction pour vérifier le QR code dans Airtable et mettre à jour son statut
+// Fonction pour vérifier le QR code dans Airtable
 function scanQRCode(token) {
     console.log('Searching for token:', token); // Log le token recherché pour débogage
 
-    // Appel API pour vérifier si le QR code existe et obtenir son statut
+    // Appel API pour vérifier si le QR code existe
     fetch(apiUrl + `?filterByFormula={Token}="${token}"`, { headers })
         .then(response => response.json())
         .then(data => {
@@ -38,15 +31,14 @@ function scanQRCode(token) {
                 console.error('Invalid response structure:', data);
                 return;
             }
-           
-           
+            
             if (data.records.length === 0) {
-                resultElement.textContent = 'QR code not found';
+                resultElement.textContent = 'QR code is not valid';
                 resultElement.className = 'error';
             } else {
                 const record = data.records[0];
                 if (record.fields.Status === 'Used') {
-                    resultElement.textContent = 'QR code already used';
+                    resultElement.textContent = 'QR code is not valid'; // QR code exists but already used
                     resultElement.className = 'error';
                 } else {
                     // Mettre à jour le statut du QR code à "Used"
@@ -58,12 +50,13 @@ function scanQRCode(token) {
                         }),
                     })
                     .then(() => {
-                        resultElement.textContent = 'QR code is valid and has been used';
+                        resultElement.textContent = 'QR code is valid';
                         resultElement.className = 'success';
                     })
                     .catch(error => {
                        resultElement.textContent = 'Error updating QR code status.';
-                       resultElement.className = ('Error updating QR code status:', error);
+                       resultElement.className = 'error';
+                       console.error('Error updating QR code status:', error);
                     });
                 }
             }
