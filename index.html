@@ -9,13 +9,16 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 20px;
+            padding-top: 20px; /* Espace en haut pour le texte */
         }
 
         #scanner-container {
             margin: 20px auto;
             border: 2px solid #000;
-            width: 300px;
-            height: 300px;
+            width: 90vw; /* Utiliser 90% de la largeur de l'écran */
+            height: 60vh; /* Utiliser 60% de la hauteur de l'écran */
+            max-width: 500px; /* Largeur maximale */
+            max-height: 400px; /* Hauteur maximale */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,7 +28,7 @@
         #result {
             font-size: 18px;
             font-weight: bold;
-            margin-top: 50px;
+            margin-top: 20px;
             text-align: center;
         }
 
@@ -49,9 +52,65 @@
     <script>
         console.log("Script loaded");
 
+        // Remplace ces valeurs par celles de ton compte Airtable
+        const AIRTABLE_API_TOKEN = 'pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4bed8b8059f8232db90438a6bff75695';  // Remplace par ton jeton d'authentification
+        const AIRTABLE_BASE_ID = 'app9wEysyeQ4sgOXY'; // Remplace par l'ID de ta base Airtable
+        const AIRTABLE_TABLE_NAME = 'Table 1'; // Assure-toi que ce nom correspond au nom de la table dans Airtable
+
+        const apiUrl = `https://api.airtable.com/v0/${'app9wEysyeQ4sgOXY'}/${'Table 1'}`;
+        const headers = {
+            Authorization: `Bearer ${'pat5Et4rPwGKQJXJR.c7d610ed44136b4e9a7c90721742c5ea4bed8b8059f8232db90438a6bff75695'}`,
+            'Content-Type': 'application/json',
+        };
+
         function onScanSuccess(decodedText, decodedResult) {
             console.log('QR Code scanned:', decodedText);
-            document.getElementById('result').innerText = decodedText;
+            scanQRCode(decodedText);
+        }
+
+        function scanQRCode(token) {
+            console.log('Searching for token:', token);
+
+            fetch(apiUrl + `?filterByFormula={Token}="${token}"`, { headers })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Airtable response:', data);
+                    const resultElement = document.getElementById('result');
+                    
+                    if (data.records.length === 0) {
+                        resultElement.textContent = 'QR code not found';
+                        resultElement.className = 'error';
+                    } else {
+                        const record = data.records[0];
+                        if (record.fields.Status === 'Used') {
+                            resultElement.textContent = 'QR code already used';
+                            resultElement.className = 'error';
+                        } else {
+                            fetch(`${apiUrl}/${record.id}`, {
+                                method: 'PATCH',
+                                headers: headers,
+                                body: JSON.stringify({
+                                    fields: { Status: 'Used' },
+                                }),
+                            })
+                            .then(() => {
+                                resultElement.textContent = 'QR code is valid and has been used';
+                                resultElement.className = 'success';
+                            })
+                            .catch(error => {
+                                resultElement.textContent = 'Error updating QR code status.';
+                                resultElement.className = 'error';
+                                console.error('Error updating QR code status:', error);
+                            });
+                        }
+                    }
+                })
+                .catch(error => {
+                    const resultElement = document.getElementById('result');
+                    resultElement.textContent = 'Error scanning QR code.';
+                    resultElement.className = 'error'; 
+                    console.error('Error fetching QR code:', error);
+                });
         }
 
         function startScanner() {
@@ -59,10 +118,10 @@
             const html5QrCode = new Html5Qrcode("scanner-container");
             
             html5QrCode.start(
-                { facingMode: "environment" }, 
+                { facingMode: "environment" },
                 {
-                    fps: 10, 
-                    qrbox: 250 
+                    fps: 10,
+                    qrbox: 250
                 },
                 onScanSuccess,
                 (errorMessage) => {
