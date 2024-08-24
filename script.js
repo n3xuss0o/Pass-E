@@ -27,6 +27,14 @@ function scanQRCode(token) {
             console.log('Airtable response:', data); // Log la réponse d’Airtable pour débogage
             const resultElement = document.getElementById('result');
             
+            if (!data.records || !Array.isArray(data.records)) {
+                resultElement.textContent = 'Error: Invalid response from server';
+                resultElement.className = 'error';
+                console.error('Invalid response structure:', data);
+                return;
+            }
+           
+           
             if (data.records.length === 0) {
                 resultElement.textContent = 'QR code not found';
                 resultElement.className = 'error';
